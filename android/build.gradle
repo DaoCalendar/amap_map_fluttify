@@ -3,29 +3,38 @@ version '1.0-SNAPSHOT'
 
 buildscript {
     repositories {
-        google()
-        jcenter()
+        maven { url 'https://maven.aliyun.com/repository/google' }
+        maven { url 'https://maven.aliyun.com/repository/jcenter' }
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public' }
         maven { url 'http://download.flutter.io' }
         maven { url "https://oss.sonatype.org/content/groups/public" }
-        maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
+//        maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
         maven { url "https://dl.bintray.com/aweme-open-sdk-team/public" }
         maven { url 'http://developer.huawei.com/repo/' }
+        google()
+        jcenter()
+
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.5.0'
+        classpath 'com.android.tools.build:gradle:4.0.1'
     }
 }
 
 rootProject.allprojects {
     repositories {
+
+//        maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
+        maven { url "https://dl.bintray.com/aweme-open-sdk-team/public" }
+        maven { url 'http://developer.huawei.com/repo/' }
+        maven { url 'https://maven.aliyun.com/repository/google' }
+        maven { url 'https://maven.aliyun.com/repository/jcenter' }
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public' }
         google()
         jcenter()
         maven { url 'http://download.flutter.io' }
         maven { url "https://oss.sonatype.org/content/groups/public" }
-        maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
-        maven { url "https://dl.bintray.com/aweme-open-sdk-team/public" }
-        maven { url 'http://developer.huawei.com/repo/' }
+
     }
 }
 
@@ -66,11 +75,18 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
     implementation 'androidx.annotation:annotation:1.1.0'
-    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
     compileOnly rootProject.findProject(":foundation_fluttify")
     // flutter plugin dependency
     compileOnly rootProject.findProject(":amap_core_fluttify")
     compileOnly rootProject.findProject(":url_launcher")
     // sdk dependency
-    api 'com.amap.api:3dmap:6.9.2'
+    api 'com.amap.api:3dmap:7.5.0'
+    //搜索 https://jcenter.bintray.com/com/amap/api/search/
+    api 'com.amap.api:search:7.4.0'
+
+    //定位 https://jcenter.bintray.com/com/amap/api/location/
+    api 'com.amap.api:location:5.1.0'
 }
+//需要在app工程也是用这个脚本
+//apply from: allGradle.amap3d

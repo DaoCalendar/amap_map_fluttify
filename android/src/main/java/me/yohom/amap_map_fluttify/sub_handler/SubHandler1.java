@@ -4,8 +4,14 @@
 
 package me.yohom.amap_map_fluttify.sub_handler;
 
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Point;
+import android.graphics.PointF;
 import android.os.Bundle;
+import android.os.Looper;
 import android.util.Log;
+import android.view.View;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -14,6 +20,38 @@ import java.util.List;
 import java.util.Map;
 
 import androidx.annotation.NonNull;
+
+import com.amap.api.maps.AMap;
+import com.amap.api.maps.MapsInitializer;
+import com.amap.api.maps.Projection;
+import com.amap.api.maps.SwipeDismissView;
+import com.amap.api.maps.WearMapView;
+import com.amap.api.maps.model.AMapCameraInfo;
+import com.amap.api.maps.model.BaseHoleOptions;
+import com.amap.api.maps.model.BitmapDescriptor;
+import com.amap.api.maps.model.BitmapDescriptorFactory;
+import com.amap.api.maps.model.CircleHoleOptions;
+import com.amap.api.maps.model.LatLng;
+import com.amap.api.maps.model.LatLngBounds;
+import com.amap.api.maps.model.Marker;
+import com.amap.api.maps.model.MyLocationStyle;
+import com.amap.api.maps.model.NavigateArrowOptions;
+import com.amap.api.maps.model.Poi;
+import com.amap.api.maps.model.Polygon;
+import com.amap.api.maps.model.PolygonHoleOptions;
+import com.amap.api.maps.model.RouteOverlay;
+import com.amap.api.maps.model.Text;
+import com.amap.api.maps.model.TileProjection;
+import com.amap.api.maps.model.VisibleRegion;
+import com.amap.api.maps.offlinemap.City;
+import com.amap.api.maps.offlinemap.DownloadProgressView;
+import com.amap.api.maps.offlinemap.OfflineMapActivity;
+import com.amap.api.maps.offlinemap.OfflineMapCity;
+import com.amap.api.maps.offlinemap.OfflineMapManager;
+import com.amap.api.maps.offlinemap.OfflineMapProvince;
+import com.amap.api.maps.offlinemap.Province;
+import com.amap.api.maps.utils.overlay.SmoothMoveMarker;
+
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
 import io.flutter.plugin.common.BinaryMessenger;
 import io.flutter.plugin.common.MethodCall;
@@ -37,7 +75,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.utils.overlay.SmoothMoveMarker ref = (com.amap.api.maps.utils.overlay.SmoothMoveMarker) getHEAP().get(refId);
+                SmoothMoveMarker ref = (SmoothMoveMarker) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -68,7 +106,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.utils.overlay.SmoothMoveMarker ref = (com.amap.api.maps.utils.overlay.SmoothMoveMarker) getHEAP().get(refId);
+                SmoothMoveMarker ref = (SmoothMoveMarker) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -76,7 +114,7 @@ public class SubHandler1 {
                 }
             
                 // invoke native method
-                com.amap.api.maps.model.Marker __result__;
+                Marker __result__;
                 try {
                     __result__ = ref.getMarker();
                 } catch (Throwable throwable) {
@@ -104,7 +142,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.utils.overlay.SmoothMoveMarker ref = (com.amap.api.maps.utils.overlay.SmoothMoveMarker) getHEAP().get(refId);
+                SmoothMoveMarker ref = (SmoothMoveMarker) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -112,7 +150,7 @@ public class SubHandler1 {
                 }
             
                 // invoke native method
-                com.amap.api.maps.model.LatLng __result__;
+                LatLng __result__;
                 try {
                     __result__ = ref.getPosition();
                 } catch (Throwable throwable) {
@@ -140,7 +178,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.utils.overlay.SmoothMoveMarker ref = (com.amap.api.maps.utils.overlay.SmoothMoveMarker) getHEAP().get(refId);
+                SmoothMoveMarker ref = (SmoothMoveMarker) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -172,7 +210,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.utils.overlay.SmoothMoveMarker ref = (com.amap.api.maps.utils.overlay.SmoothMoveMarker) getHEAP().get(refId);
+                SmoothMoveMarker ref = (SmoothMoveMarker) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -203,7 +241,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.utils.overlay.SmoothMoveMarker ref = (com.amap.api.maps.utils.overlay.SmoothMoveMarker) getHEAP().get(refId);
+                SmoothMoveMarker ref = (SmoothMoveMarker) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -234,7 +272,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.utils.overlay.SmoothMoveMarker ref = (com.amap.api.maps.utils.overlay.SmoothMoveMarker) getHEAP().get(refId);
+                SmoothMoveMarker ref = (SmoothMoveMarker) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -263,11 +301,11 @@ public class SubHandler1 {
                 // args
                 // ref arg
                 Integer __var1RefId__ = (Integer) ((Map<String, Object>) __args__).get("var1");
-                com.amap.api.maps.model.LatLng var1 = __var1RefId__ != null ? (com.amap.api.maps.model.LatLng) getHEAP().get(__var1RefId__) : null;
+                LatLng var1 = __var1RefId__ != null ? (LatLng) getHEAP().get(__var1RefId__) : null;
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.utils.overlay.SmoothMoveMarker ref = (com.amap.api.maps.utils.overlay.SmoothMoveMarker) getHEAP().get(refId);
+                SmoothMoveMarker ref = (SmoothMoveMarker) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -296,11 +334,11 @@ public class SubHandler1 {
                 // args
                 // ref arg
                 Integer __var1RefId__ = (Integer) ((Map<String, Object>) __args__).get("var1");
-                com.amap.api.maps.model.BitmapDescriptor var1 = __var1RefId__ != null ? (com.amap.api.maps.model.BitmapDescriptor) getHEAP().get(__var1RefId__) : null;
+                BitmapDescriptor var1 = __var1RefId__ != null ? (BitmapDescriptor) getHEAP().get(__var1RefId__) : null;
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.utils.overlay.SmoothMoveMarker ref = (com.amap.api.maps.utils.overlay.SmoothMoveMarker) getHEAP().get(refId);
+                SmoothMoveMarker ref = (SmoothMoveMarker) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -332,7 +370,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.utils.overlay.SmoothMoveMarker ref = (com.amap.api.maps.utils.overlay.SmoothMoveMarker) getHEAP().get(refId);
+                SmoothMoveMarker ref = (SmoothMoveMarker) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -364,7 +402,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.utils.overlay.SmoothMoveMarker ref = (com.amap.api.maps.utils.overlay.SmoothMoveMarker) getHEAP().get(refId);
+                SmoothMoveMarker ref = (SmoothMoveMarker) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -395,7 +433,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.utils.overlay.SmoothMoveMarker ref = (com.amap.api.maps.utils.overlay.SmoothMoveMarker) getHEAP().get(refId);
+                SmoothMoveMarker ref = (SmoothMoveMarker) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -404,10 +442,10 @@ public class SubHandler1 {
             
                 // invoke native method
                 try {
-                    ref.setMoveListener(new com.amap.api.maps.utils.overlay.SmoothMoveMarker.MoveListener() {
+                    ref.setMoveListener(new SmoothMoveMarker.MoveListener() {
                         // method channel
                         MethodChannel callbackChannel = new MethodChannel(messenger, "com.amap.api.maps.utils.overlay.SmoothMoveMarker::setMoveListener::Callback");
-                        android.os.Handler handler = new android.os.Handler(android.os.Looper.getMainLooper());
+                        android.os.Handler handler = new android.os.Handler(Looper.getMainLooper());
             
                         // call dart method
                         @Override
@@ -460,7 +498,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.SwipeDismissView ref = (com.amap.api.maps.SwipeDismissView) getHEAP().get(refId);
+                SwipeDismissView ref = (SwipeDismissView) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -469,10 +507,10 @@ public class SubHandler1 {
             
                 // invoke native method
                 try {
-                    ref.setCallback(new com.amap.api.maps.WearMapView.OnDismissCallback() {
+                    ref.setCallback(new WearMapView.OnDismissCallback() {
                         // method channel
                         MethodChannel callbackChannel = new MethodChannel(messenger, "com.amap.api.maps.SwipeDismissView::setCallback::Callback");
-                        android.os.Handler handler = new android.os.Handler(android.os.Looper.getMainLooper());
+                        android.os.Handler handler = new android.os.Handler(Looper.getMainLooper());
             
                         // call dart method
                         @Override
@@ -549,7 +587,7 @@ public class SubHandler1 {
                 // args
                 // ref arg
                 Integer __var0RefId__ = (Integer) ((Map<String, Object>) __args__).get("var0");
-                android.content.Context var0 = __var0RefId__ != null ? (android.content.Context) getHEAP().get(__var0RefId__) : null;
+                Context var0 = __var0RefId__ != null ? (Context) getHEAP().get(__var0RefId__) : null;
             
                 // ref
             
@@ -561,7 +599,7 @@ public class SubHandler1 {
             
                 // invoke native method
                 try {
-                    com.amap.api.maps.MapsInitializer.initialize(var0);
+                    MapsInitializer.initialize(var0);
                 } catch (Throwable throwable) {
                     throwable.printStackTrace();
                     if (getEnableLog()) {
@@ -592,7 +630,7 @@ public class SubHandler1 {
             
                 // invoke native method
                 try {
-                    com.amap.api.maps.MapsInitializer.setNetWorkEnable(var0);
+                    MapsInitializer.setNetWorkEnable(var0);
                 } catch (Throwable throwable) {
                     throwable.printStackTrace();
                     if (getEnableLog()) {
@@ -623,7 +661,7 @@ public class SubHandler1 {
                 // invoke native method
                 boolean __result__;
                 try {
-                    __result__ = com.amap.api.maps.MapsInitializer.getNetWorkEnable();
+                    __result__ = MapsInitializer.getNetWorkEnable();
                 } catch (Throwable throwable) {
                     throwable.printStackTrace();
                     if (getEnableLog()) {
@@ -654,7 +692,7 @@ public class SubHandler1 {
             
                 // invoke native method
                 try {
-                    com.amap.api.maps.MapsInitializer.setApiKey(var0);
+                    MapsInitializer.setApiKey(var0);
                 } catch (Throwable throwable) {
                     throwable.printStackTrace();
                     if (getEnableLog()) {
@@ -685,7 +723,7 @@ public class SubHandler1 {
                 // invoke native method
                 String __result__;
                 try {
-                    __result__ = com.amap.api.maps.MapsInitializer.getVersion();
+                    __result__ = MapsInitializer.getVersion();
                 } catch (Throwable throwable) {
                     throwable.printStackTrace();
                     if (getEnableLog()) {
@@ -716,7 +754,7 @@ public class SubHandler1 {
             
                 // invoke native method
                 try {
-                    com.amap.api.maps.MapsInitializer.loadWorldGridMap(var0);
+                    MapsInitializer.loadWorldGridMap(var0);
                 } catch (Throwable throwable) {
                     throwable.printStackTrace();
                     if (getEnableLog()) {
@@ -747,7 +785,7 @@ public class SubHandler1 {
                 // invoke native method
                 boolean __result__;
                 try {
-                    __result__ = com.amap.api.maps.MapsInitializer.isLoadWorldGridMap();
+                    __result__ = MapsInitializer.isLoadWorldGridMap();
                 } catch (Throwable throwable) {
                     throwable.printStackTrace();
                     if (getEnableLog()) {
@@ -778,7 +816,7 @@ public class SubHandler1 {
             
                 // invoke native method
                 try {
-                    com.amap.api.maps.MapsInitializer.setBuildingHeight(var0);
+                    MapsInitializer.setBuildingHeight(var0);
                 } catch (Throwable throwable) {
                     throwable.printStackTrace();
                     if (getEnableLog()) {
@@ -809,7 +847,7 @@ public class SubHandler1 {
             
                 // invoke native method
                 try {
-                    com.amap.api.maps.MapsInitializer.setDownloadCoordinateConvertLibrary(var0);
+                    MapsInitializer.setDownloadCoordinateConvertLibrary(var0);
                 } catch (Throwable throwable) {
                     throwable.printStackTrace();
                     if (getEnableLog()) {
@@ -840,7 +878,7 @@ public class SubHandler1 {
                 // invoke native method
                 boolean __result__;
                 try {
-                    __result__ = com.amap.api.maps.MapsInitializer.isDownloadCoordinateConvertLibrary();
+                    __result__ = MapsInitializer.isDownloadCoordinateConvertLibrary();
                 } catch (Throwable throwable) {
                     throwable.printStackTrace();
                     if (getEnableLog()) {
@@ -871,7 +909,7 @@ public class SubHandler1 {
             
                 // invoke native method
                 try {
-                    com.amap.api.maps.MapsInitializer.setHost(var0);
+                    MapsInitializer.setHost(var0);
                 } catch (Throwable throwable) {
                     throwable.printStackTrace();
                     if (getEnableLog()) {
@@ -902,7 +940,7 @@ public class SubHandler1 {
             
                 // invoke native method
                 try {
-                    com.amap.api.maps.MapsInitializer.setProtocol(var0);
+                    MapsInitializer.setProtocol(var0);
                 } catch (Throwable throwable) {
                     throwable.printStackTrace();
                     if (getEnableLog()) {
@@ -933,7 +971,7 @@ public class SubHandler1 {
                 // invoke native method
                 int __result__;
                 try {
-                    __result__ = com.amap.api.maps.MapsInitializer.getProtocol();
+                    __result__ = MapsInitializer.getProtocol();
                 } catch (Throwable throwable) {
                     throwable.printStackTrace();
                     if (getEnableLog()) {
@@ -964,7 +1002,7 @@ public class SubHandler1 {
             
                 // invoke native method
                 try {
-                    com.amap.api.maps.MapsInitializer.closeTileOverlay(var0);
+                    MapsInitializer.loadWorldVectorMap(var0);
                 } catch (Throwable throwable) {
                     throwable.printStackTrace();
                     if (getEnableLog()) {
@@ -995,7 +1033,7 @@ public class SubHandler1 {
                 // invoke native method
                 boolean __result__;
                 try {
-                    __result__ = com.amap.api.maps.MapsInitializer.isTileOverlayClosed();
+                    __result__ = MapsInitializer.isLoadWorldGridMap();  //closeTileOverlay to isTileOverlayClosed
                 } catch (Throwable throwable) {
                     throwable.printStackTrace();
                     if (getEnableLog()) {
@@ -1017,7 +1055,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.offlinemap.OfflineMapProvince ref = (com.amap.api.maps.offlinemap.OfflineMapProvince) getHEAP().get(refId);
+                OfflineMapProvince ref = (OfflineMapProvince) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -1050,7 +1088,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.offlinemap.OfflineMapProvince ref = (com.amap.api.maps.offlinemap.OfflineMapProvince) getHEAP().get(refId);
+                OfflineMapProvince ref = (OfflineMapProvince) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -1081,7 +1119,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.offlinemap.OfflineMapProvince ref = (com.amap.api.maps.offlinemap.OfflineMapProvince) getHEAP().get(refId);
+                OfflineMapProvince ref = (OfflineMapProvince) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -1114,7 +1152,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.offlinemap.OfflineMapProvince ref = (com.amap.api.maps.offlinemap.OfflineMapProvince) getHEAP().get(refId);
+                OfflineMapProvince ref = (OfflineMapProvince) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -1145,7 +1183,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.offlinemap.OfflineMapProvince ref = (com.amap.api.maps.offlinemap.OfflineMapProvince) getHEAP().get(refId);
+                OfflineMapProvince ref = (OfflineMapProvince) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -1178,7 +1216,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.offlinemap.OfflineMapProvince ref = (com.amap.api.maps.offlinemap.OfflineMapProvince) getHEAP().get(refId);
+                OfflineMapProvince ref = (OfflineMapProvince) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -1209,7 +1247,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.offlinemap.OfflineMapProvince ref = (com.amap.api.maps.offlinemap.OfflineMapProvince) getHEAP().get(refId);
+                OfflineMapProvince ref = (OfflineMapProvince) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -1242,7 +1280,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.offlinemap.OfflineMapProvince ref = (com.amap.api.maps.offlinemap.OfflineMapProvince) getHEAP().get(refId);
+                OfflineMapProvince ref = (OfflineMapProvince) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -1273,7 +1311,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.offlinemap.OfflineMapProvince ref = (com.amap.api.maps.offlinemap.OfflineMapProvince) getHEAP().get(refId);
+                OfflineMapProvince ref = (OfflineMapProvince) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -1306,7 +1344,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.offlinemap.OfflineMapProvince ref = (com.amap.api.maps.offlinemap.OfflineMapProvince) getHEAP().get(refId);
+                OfflineMapProvince ref = (OfflineMapProvince) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -1337,7 +1375,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.offlinemap.OfflineMapProvince ref = (com.amap.api.maps.offlinemap.OfflineMapProvince) getHEAP().get(refId);
+                OfflineMapProvince ref = (OfflineMapProvince) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -1345,7 +1383,7 @@ public class SubHandler1 {
                 }
             
                 // invoke native method
-                java.util.ArrayList<com.amap.api.maps.offlinemap.OfflineMapCity> __result__;
+                ArrayList<OfflineMapCity> __result__;
                 try {
                     __result__ = ref.getCityList();
                 } catch (Throwable throwable) {
@@ -1361,7 +1399,7 @@ public class SubHandler1 {
                 List<Integer> jsonableResult = null;
                 if (__result__ != null) {
                     jsonableResult = new ArrayList<>();
-                    for (com.amap.api.maps.offlinemap.OfflineMapCity item : __result__) {
+                    for (OfflineMapCity item : __result__) {
                         getHEAP().put(System.identityHashCode(item), item);
                         jsonableResult.add(System.identityHashCode(item));
                     }
@@ -1376,7 +1414,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.offlinemap.OfflineMapProvince ref = (com.amap.api.maps.offlinemap.OfflineMapProvince) getHEAP().get(refId);
+                OfflineMapProvince ref = (OfflineMapProvince) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -1384,7 +1422,7 @@ public class SubHandler1 {
                 }
             
                 // invoke native method
-                java.util.ArrayList<com.amap.api.maps.offlinemap.OfflineMapCity> __result__;
+                ArrayList<OfflineMapCity> __result__;
                 try {
                     __result__ = ref.getDownloadedCityList();
                 } catch (Throwable throwable) {
@@ -1400,7 +1438,7 @@ public class SubHandler1 {
                 List<Integer> jsonableResult = null;
                 if (__result__ != null) {
                     jsonableResult = new ArrayList<>();
-                    for (com.amap.api.maps.offlinemap.OfflineMapCity item : __result__) {
+                    for (OfflineMapCity item : __result__) {
                         getHEAP().put(System.identityHashCode(item), item);
                         jsonableResult.add(System.identityHashCode(item));
                     }
@@ -1413,14 +1451,14 @@ public class SubHandler1 {
                 // args
                 // list arg
                 List<Integer> var1RefIdList = (List<Integer>) ((Map<String, Object>) __args__).get("var1");
-                java.util.ArrayList<com.amap.api.maps.offlinemap.OfflineMapCity> var1 = new ArrayList<>();
+                ArrayList<OfflineMapCity> var1 = new ArrayList<>();
                 for (int refId : var1RefIdList) {
-                    ((ArrayList<com.amap.api.maps.offlinemap.OfflineMapCity>) var1).add((com.amap.api.maps.offlinemap.OfflineMapCity) getHEAP().get(refId));
+                    ((ArrayList<OfflineMapCity>) var1).add((OfflineMapCity) getHEAP().get(refId));
                 }
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.offlinemap.OfflineMapProvince ref = (com.amap.api.maps.offlinemap.OfflineMapProvince) getHEAP().get(refId);
+                OfflineMapProvince ref = (OfflineMapProvince) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -1452,7 +1490,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.offlinemap.DownloadProgressView ref = (com.amap.api.maps.offlinemap.DownloadProgressView) getHEAP().get(refId);
+                DownloadProgressView ref = (DownloadProgressView) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -1483,7 +1521,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.offlinemap.Province ref = (com.amap.api.maps.offlinemap.Province) getHEAP().get(refId);
+                Province ref = (Province) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -1515,7 +1553,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.offlinemap.Province ref = (com.amap.api.maps.offlinemap.Province) getHEAP().get(refId);
+                Province ref = (Province) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -1547,7 +1585,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.offlinemap.Province ref = (com.amap.api.maps.offlinemap.Province) getHEAP().get(refId);
+                Province ref = (Province) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -1580,7 +1618,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.offlinemap.Province ref = (com.amap.api.maps.offlinemap.Province) getHEAP().get(refId);
+                Province ref = (Province) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -1612,7 +1650,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.offlinemap.Province ref = (com.amap.api.maps.offlinemap.Province) getHEAP().get(refId);
+                Province ref = (Province) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -1644,7 +1682,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.offlinemap.Province ref = (com.amap.api.maps.offlinemap.Province) getHEAP().get(refId);
+                Province ref = (Province) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -1676,7 +1714,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.offlinemap.Province ref = (com.amap.api.maps.offlinemap.Province) getHEAP().get(refId);
+                Province ref = (Province) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -1707,7 +1745,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.offlinemap.Province ref = (com.amap.api.maps.offlinemap.Province) getHEAP().get(refId);
+                Province ref = (Province) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -1740,7 +1778,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.offlinemap.OfflineMapManager ref = (com.amap.api.maps.offlinemap.OfflineMapManager) getHEAP().get(refId);
+                OfflineMapManager ref = (OfflineMapManager) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -1772,7 +1810,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.offlinemap.OfflineMapManager ref = (com.amap.api.maps.offlinemap.OfflineMapManager) getHEAP().get(refId);
+                OfflineMapManager ref = (OfflineMapManager) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -1804,7 +1842,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.offlinemap.OfflineMapManager ref = (com.amap.api.maps.offlinemap.OfflineMapManager) getHEAP().get(refId);
+                OfflineMapManager ref = (OfflineMapManager) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -1836,7 +1874,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.offlinemap.OfflineMapManager ref = (com.amap.api.maps.offlinemap.OfflineMapManager) getHEAP().get(refId);
+                OfflineMapManager ref = (OfflineMapManager) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -1867,7 +1905,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.offlinemap.OfflineMapManager ref = (com.amap.api.maps.offlinemap.OfflineMapManager) getHEAP().get(refId);
+                OfflineMapManager ref = (OfflineMapManager) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -1875,7 +1913,7 @@ public class SubHandler1 {
                 }
             
                 // invoke native method
-                java.util.ArrayList<com.amap.api.maps.offlinemap.OfflineMapProvince> __result__;
+                ArrayList<OfflineMapProvince> __result__;
                 try {
                     __result__ = ref.getOfflineMapProvinceList();
                 } catch (Throwable throwable) {
@@ -1891,7 +1929,7 @@ public class SubHandler1 {
                 List<Integer> jsonableResult = null;
                 if (__result__ != null) {
                     jsonableResult = new ArrayList<>();
-                    for (com.amap.api.maps.offlinemap.OfflineMapProvince item : __result__) {
+                    for (OfflineMapProvince item : __result__) {
                         getHEAP().put(System.identityHashCode(item), item);
                         jsonableResult.add(System.identityHashCode(item));
                     }
@@ -1907,7 +1945,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.offlinemap.OfflineMapManager ref = (com.amap.api.maps.offlinemap.OfflineMapManager) getHEAP().get(refId);
+                OfflineMapManager ref = (OfflineMapManager) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -1915,7 +1953,7 @@ public class SubHandler1 {
                 }
             
                 // invoke native method
-                com.amap.api.maps.offlinemap.OfflineMapCity __result__;
+                OfflineMapCity __result__;
                 try {
                     __result__ = ref.getItemByCityCode(var1);
                 } catch (Throwable throwable) {
@@ -1944,7 +1982,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.offlinemap.OfflineMapManager ref = (com.amap.api.maps.offlinemap.OfflineMapManager) getHEAP().get(refId);
+                OfflineMapManager ref = (OfflineMapManager) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -1952,7 +1990,7 @@ public class SubHandler1 {
                 }
             
                 // invoke native method
-                com.amap.api.maps.offlinemap.OfflineMapCity __result__;
+                OfflineMapCity __result__;
                 try {
                     __result__ = ref.getItemByCityName(var1);
                 } catch (Throwable throwable) {
@@ -1981,7 +2019,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.offlinemap.OfflineMapManager ref = (com.amap.api.maps.offlinemap.OfflineMapManager) getHEAP().get(refId);
+                OfflineMapManager ref = (OfflineMapManager) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -1989,7 +2027,7 @@ public class SubHandler1 {
                 }
             
                 // invoke native method
-                com.amap.api.maps.offlinemap.OfflineMapProvince __result__;
+                OfflineMapProvince __result__;
                 try {
                     __result__ = ref.getItemByProvinceName(var1);
                 } catch (Throwable throwable) {
@@ -2017,7 +2055,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.offlinemap.OfflineMapManager ref = (com.amap.api.maps.offlinemap.OfflineMapManager) getHEAP().get(refId);
+                OfflineMapManager ref = (OfflineMapManager) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -2025,7 +2063,7 @@ public class SubHandler1 {
                 }
             
                 // invoke native method
-                java.util.ArrayList<com.amap.api.maps.offlinemap.OfflineMapCity> __result__;
+                ArrayList<OfflineMapCity> __result__;
                 try {
                     __result__ = ref.getOfflineMapCityList();
                 } catch (Throwable throwable) {
@@ -2041,7 +2079,7 @@ public class SubHandler1 {
                 List<Integer> jsonableResult = null;
                 if (__result__ != null) {
                     jsonableResult = new ArrayList<>();
-                    for (com.amap.api.maps.offlinemap.OfflineMapCity item : __result__) {
+                    for (OfflineMapCity item : __result__) {
                         getHEAP().put(System.identityHashCode(item), item);
                         jsonableResult.add(System.identityHashCode(item));
                     }
@@ -2056,7 +2094,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.offlinemap.OfflineMapManager ref = (com.amap.api.maps.offlinemap.OfflineMapManager) getHEAP().get(refId);
+                OfflineMapManager ref = (OfflineMapManager) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -2064,7 +2102,7 @@ public class SubHandler1 {
                 }
             
                 // invoke native method
-                java.util.ArrayList<com.amap.api.maps.offlinemap.OfflineMapCity> __result__;
+                ArrayList<OfflineMapCity> __result__;
                 try {
                     __result__ = ref.getDownloadingCityList();
                 } catch (Throwable throwable) {
@@ -2080,7 +2118,7 @@ public class SubHandler1 {
                 List<Integer> jsonableResult = null;
                 if (__result__ != null) {
                     jsonableResult = new ArrayList<>();
-                    for (com.amap.api.maps.offlinemap.OfflineMapCity item : __result__) {
+                    for (OfflineMapCity item : __result__) {
                         getHEAP().put(System.identityHashCode(item), item);
                         jsonableResult.add(System.identityHashCode(item));
                     }
@@ -2095,7 +2133,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.offlinemap.OfflineMapManager ref = (com.amap.api.maps.offlinemap.OfflineMapManager) getHEAP().get(refId);
+                OfflineMapManager ref = (OfflineMapManager) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -2103,7 +2141,7 @@ public class SubHandler1 {
                 }
             
                 // invoke native method
-                java.util.ArrayList<com.amap.api.maps.offlinemap.OfflineMapProvince> __result__;
+                ArrayList<OfflineMapProvince> __result__;
                 try {
                     __result__ = ref.getDownloadingProvinceList();
                 } catch (Throwable throwable) {
@@ -2119,7 +2157,7 @@ public class SubHandler1 {
                 List<Integer> jsonableResult = null;
                 if (__result__ != null) {
                     jsonableResult = new ArrayList<>();
-                    for (com.amap.api.maps.offlinemap.OfflineMapProvince item : __result__) {
+                    for (OfflineMapProvince item : __result__) {
                         getHEAP().put(System.identityHashCode(item), item);
                         jsonableResult.add(System.identityHashCode(item));
                     }
@@ -2134,7 +2172,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.offlinemap.OfflineMapManager ref = (com.amap.api.maps.offlinemap.OfflineMapManager) getHEAP().get(refId);
+                OfflineMapManager ref = (OfflineMapManager) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -2142,7 +2180,7 @@ public class SubHandler1 {
                 }
             
                 // invoke native method
-                java.util.ArrayList<com.amap.api.maps.offlinemap.OfflineMapCity> __result__;
+                ArrayList<OfflineMapCity> __result__;
                 try {
                     __result__ = ref.getDownloadOfflineMapCityList();
                 } catch (Throwable throwable) {
@@ -2158,7 +2196,7 @@ public class SubHandler1 {
                 List<Integer> jsonableResult = null;
                 if (__result__ != null) {
                     jsonableResult = new ArrayList<>();
-                    for (com.amap.api.maps.offlinemap.OfflineMapCity item : __result__) {
+                    for (OfflineMapCity item : __result__) {
                         getHEAP().put(System.identityHashCode(item), item);
                         jsonableResult.add(System.identityHashCode(item));
                     }
@@ -2173,7 +2211,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.offlinemap.OfflineMapManager ref = (com.amap.api.maps.offlinemap.OfflineMapManager) getHEAP().get(refId);
+                OfflineMapManager ref = (OfflineMapManager) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -2181,7 +2219,7 @@ public class SubHandler1 {
                 }
             
                 // invoke native method
-                java.util.ArrayList<com.amap.api.maps.offlinemap.OfflineMapProvince> __result__;
+                ArrayList<OfflineMapProvince> __result__;
                 try {
                     __result__ = ref.getDownloadOfflineMapProvinceList();
                 } catch (Throwable throwable) {
@@ -2197,7 +2235,7 @@ public class SubHandler1 {
                 List<Integer> jsonableResult = null;
                 if (__result__ != null) {
                     jsonableResult = new ArrayList<>();
-                    for (com.amap.api.maps.offlinemap.OfflineMapProvince item : __result__) {
+                    for (OfflineMapProvince item : __result__) {
                         getHEAP().put(System.identityHashCode(item), item);
                         jsonableResult.add(System.identityHashCode(item));
                     }
@@ -2213,7 +2251,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.offlinemap.OfflineMapManager ref = (com.amap.api.maps.offlinemap.OfflineMapManager) getHEAP().get(refId);
+                OfflineMapManager ref = (OfflineMapManager) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -2245,7 +2283,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.offlinemap.OfflineMapManager ref = (com.amap.api.maps.offlinemap.OfflineMapManager) getHEAP().get(refId);
+                OfflineMapManager ref = (OfflineMapManager) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -2277,7 +2315,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.offlinemap.OfflineMapManager ref = (com.amap.api.maps.offlinemap.OfflineMapManager) getHEAP().get(refId);
+                OfflineMapManager ref = (OfflineMapManager) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -2308,7 +2346,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.offlinemap.OfflineMapManager ref = (com.amap.api.maps.offlinemap.OfflineMapManager) getHEAP().get(refId);
+                OfflineMapManager ref = (OfflineMapManager) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -2339,7 +2377,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.offlinemap.OfflineMapManager ref = (com.amap.api.maps.offlinemap.OfflineMapManager) getHEAP().get(refId);
+                OfflineMapManager ref = (OfflineMapManager) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -2370,7 +2408,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.offlinemap.OfflineMapManager ref = (com.amap.api.maps.offlinemap.OfflineMapManager) getHEAP().get(refId);
+                OfflineMapManager ref = (OfflineMapManager) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -2401,7 +2439,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.offlinemap.OfflineMapManager ref = (com.amap.api.maps.offlinemap.OfflineMapManager) getHEAP().get(refId);
+                OfflineMapManager ref = (OfflineMapManager) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -2432,7 +2470,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.offlinemap.OfflineMapManager ref = (com.amap.api.maps.offlinemap.OfflineMapManager) getHEAP().get(refId);
+                OfflineMapManager ref = (OfflineMapManager) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -2441,10 +2479,10 @@ public class SubHandler1 {
             
                 // invoke native method
                 try {
-                    ref.setOnOfflineLoadedListener(new com.amap.api.maps.offlinemap.OfflineMapManager.OfflineLoadedListener() {
+                    ref.setOnOfflineLoadedListener(new OfflineMapManager.OfflineLoadedListener() {
                         // method channel
                         MethodChannel callbackChannel = new MethodChannel(messenger, "com.amap.api.maps.offlinemap.OfflineMapManager::setOnOfflineLoadedListener::Callback");
-                        android.os.Handler handler = new android.os.Handler(android.os.Looper.getMainLooper());
+                        android.os.Handler handler = new android.os.Handler(Looper.getMainLooper());
             
                         // call dart method
                         @Override
@@ -2496,7 +2534,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.offlinemap.OfflineMapCity ref = (com.amap.api.maps.offlinemap.OfflineMapCity) getHEAP().get(refId);
+                OfflineMapCity ref = (OfflineMapCity) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -2529,7 +2567,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.offlinemap.OfflineMapCity ref = (com.amap.api.maps.offlinemap.OfflineMapCity) getHEAP().get(refId);
+                OfflineMapCity ref = (OfflineMapCity) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -2560,7 +2598,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.offlinemap.OfflineMapCity ref = (com.amap.api.maps.offlinemap.OfflineMapCity) getHEAP().get(refId);
+                OfflineMapCity ref = (OfflineMapCity) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -2593,7 +2631,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.offlinemap.OfflineMapCity ref = (com.amap.api.maps.offlinemap.OfflineMapCity) getHEAP().get(refId);
+                OfflineMapCity ref = (OfflineMapCity) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -2624,7 +2662,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.offlinemap.OfflineMapCity ref = (com.amap.api.maps.offlinemap.OfflineMapCity) getHEAP().get(refId);
+                OfflineMapCity ref = (OfflineMapCity) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -2657,7 +2695,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.offlinemap.OfflineMapCity ref = (com.amap.api.maps.offlinemap.OfflineMapCity) getHEAP().get(refId);
+                OfflineMapCity ref = (OfflineMapCity) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -2688,7 +2726,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.offlinemap.OfflineMapCity ref = (com.amap.api.maps.offlinemap.OfflineMapCity) getHEAP().get(refId);
+                OfflineMapCity ref = (OfflineMapCity) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -2721,7 +2759,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.offlinemap.OfflineMapCity ref = (com.amap.api.maps.offlinemap.OfflineMapCity) getHEAP().get(refId);
+                OfflineMapCity ref = (OfflineMapCity) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -2752,7 +2790,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.offlinemap.OfflineMapCity ref = (com.amap.api.maps.offlinemap.OfflineMapCity) getHEAP().get(refId);
+                OfflineMapCity ref = (OfflineMapCity) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -2785,7 +2823,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.offlinemap.OfflineMapCity ref = (com.amap.api.maps.offlinemap.OfflineMapCity) getHEAP().get(refId);
+                OfflineMapCity ref = (OfflineMapCity) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -2816,7 +2854,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.offlinemap.OfflineMapActivity ref = (com.amap.api.maps.offlinemap.OfflineMapActivity) getHEAP().get(refId);
+                OfflineMapActivity ref = (OfflineMapActivity) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -2847,7 +2885,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.offlinemap.OfflineMapActivity ref = (com.amap.api.maps.offlinemap.OfflineMapActivity) getHEAP().get(refId);
+                OfflineMapActivity ref = (OfflineMapActivity) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -2876,11 +2914,11 @@ public class SubHandler1 {
                 // args
                 // ref arg
                 Integer __var1RefId__ = (Integer) ((Map<String, Object>) __args__).get("var1");
-                android.os.Bundle var1 = __var1RefId__ != null ? (android.os.Bundle) getHEAP().get(__var1RefId__) : null;
+                Bundle var1 = __var1RefId__ != null ? (Bundle) getHEAP().get(__var1RefId__) : null;
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.offlinemap.OfflineMapActivity ref = (com.amap.api.maps.offlinemap.OfflineMapActivity) getHEAP().get(refId);
+                OfflineMapActivity ref = (OfflineMapActivity) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -2909,11 +2947,11 @@ public class SubHandler1 {
                 // args
                 // ref arg
                 Integer __var1RefId__ = (Integer) ((Map<String, Object>) __args__).get("var1");
-                android.view.View var1 = __var1RefId__ != null ? (android.view.View) getHEAP().get(__var1RefId__) : null;
+                View var1 = __var1RefId__ != null ? (View) getHEAP().get(__var1RefId__) : null;
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.offlinemap.OfflineMapActivity ref = (com.amap.api.maps.offlinemap.OfflineMapActivity) getHEAP().get(refId);
+                OfflineMapActivity ref = (OfflineMapActivity) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -2945,7 +2983,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.offlinemap.City ref = (com.amap.api.maps.offlinemap.City) getHEAP().get(refId);
+                City ref = (City) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -2976,7 +3014,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.offlinemap.City ref = (com.amap.api.maps.offlinemap.City) getHEAP().get(refId);
+                City ref = (City) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -3009,7 +3047,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.offlinemap.City ref = (com.amap.api.maps.offlinemap.City) getHEAP().get(refId);
+                City ref = (City) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -3040,7 +3078,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.offlinemap.City ref = (com.amap.api.maps.offlinemap.City) getHEAP().get(refId);
+                City ref = (City) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -3072,7 +3110,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.offlinemap.City ref = (com.amap.api.maps.offlinemap.City) getHEAP().get(refId);
+                City ref = (City) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -3105,7 +3143,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.offlinemap.City ref = (com.amap.api.maps.offlinemap.City) getHEAP().get(refId);
+                City ref = (City) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -3136,7 +3174,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.offlinemap.City ref = (com.amap.api.maps.offlinemap.City) getHEAP().get(refId);
+                City ref = (City) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -3169,7 +3207,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.offlinemap.City ref = (com.amap.api.maps.offlinemap.City) getHEAP().get(refId);
+                City ref = (City) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -3200,7 +3238,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.offlinemap.City ref = (com.amap.api.maps.offlinemap.City) getHEAP().get(refId);
+                City ref = (City) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -3233,7 +3271,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.offlinemap.City ref = (com.amap.api.maps.offlinemap.City) getHEAP().get(refId);
+                City ref = (City) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -3262,11 +3300,11 @@ public class SubHandler1 {
                 // args
                 // ref arg
                 Integer __var1RefId__ = (Integer) ((Map<String, Object>) __args__).get("var1");
-                android.graphics.Point var1 = __var1RefId__ != null ? (android.graphics.Point) getHEAP().get(__var1RefId__) : null;
+                Point var1 = __var1RefId__ != null ? (Point) getHEAP().get(__var1RefId__) : null;
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.Projection ref = (com.amap.api.maps.Projection) getHEAP().get(refId);
+                Projection ref = (Projection) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -3274,7 +3312,7 @@ public class SubHandler1 {
                 }
             
                 // invoke native method
-                com.amap.api.maps.model.LatLng __result__;
+                LatLng __result__;
                 try {
                     __result__ = ref.fromScreenLocation(var1);
                 } catch (Throwable throwable) {
@@ -3300,11 +3338,11 @@ public class SubHandler1 {
                 // args
                 // ref arg
                 Integer __var1RefId__ = (Integer) ((Map<String, Object>) __args__).get("var1");
-                com.amap.api.maps.model.LatLng var1 = __var1RefId__ != null ? (com.amap.api.maps.model.LatLng) getHEAP().get(__var1RefId__) : null;
+                LatLng var1 = __var1RefId__ != null ? (LatLng) getHEAP().get(__var1RefId__) : null;
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.Projection ref = (com.amap.api.maps.Projection) getHEAP().get(refId);
+                Projection ref = (Projection) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -3312,7 +3350,7 @@ public class SubHandler1 {
                 }
             
                 // invoke native method
-                android.graphics.Point __result__;
+                Point __result__;
                 try {
                     __result__ = ref.toScreenLocation(var1);
                 } catch (Throwable throwable) {
@@ -3338,11 +3376,11 @@ public class SubHandler1 {
                 // args
                 // ref arg
                 Integer __var1RefId__ = (Integer) ((Map<String, Object>) __args__).get("var1");
-                com.amap.api.maps.model.LatLng var1 = __var1RefId__ != null ? (com.amap.api.maps.model.LatLng) getHEAP().get(__var1RefId__) : null;
+                LatLng var1 = __var1RefId__ != null ? (LatLng) getHEAP().get(__var1RefId__) : null;
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.Projection ref = (com.amap.api.maps.Projection) getHEAP().get(refId);
+                Projection ref = (Projection) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -3350,7 +3388,7 @@ public class SubHandler1 {
                 }
             
                 // invoke native method
-                android.graphics.PointF __result__;
+                PointF __result__;
                 try {
                     __result__ = ref.toMapLocation(var1);
                 } catch (Throwable throwable) {
@@ -3376,11 +3414,11 @@ public class SubHandler1 {
                 // args
                 // ref arg
                 Integer __var1RefId__ = (Integer) ((Map<String, Object>) __args__).get("var1");
-                com.amap.api.maps.model.LatLng var1 = __var1RefId__ != null ? (com.amap.api.maps.model.LatLng) getHEAP().get(__var1RefId__) : null;
+                LatLng var1 = __var1RefId__ != null ? (LatLng) getHEAP().get(__var1RefId__) : null;
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.Projection ref = (com.amap.api.maps.Projection) getHEAP().get(refId);
+                Projection ref = (Projection) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -3388,7 +3426,7 @@ public class SubHandler1 {
                 }
             
                 // invoke native method
-                android.graphics.PointF __result__;
+                PointF __result__;
                 try {
                     __result__ = ref.toOpenGLLocation(var1);
                 } catch (Throwable throwable) {
@@ -3417,7 +3455,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.Projection ref = (com.amap.api.maps.Projection) getHEAP().get(refId);
+                Projection ref = (Projection) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -3449,7 +3487,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.Projection ref = (com.amap.api.maps.Projection) getHEAP().get(refId);
+                Projection ref = (Projection) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -3457,7 +3495,7 @@ public class SubHandler1 {
                 }
             
                 // invoke native method
-                com.amap.api.maps.model.VisibleRegion __result__;
+                VisibleRegion __result__;
                 try {
                     __result__ = ref.getVisibleRegion();
                 } catch (Throwable throwable) {
@@ -3483,7 +3521,7 @@ public class SubHandler1 {
                 // args
                 // ref arg
                 Integer __var1RefId__ = (Integer) ((Map<String, Object>) __args__).get("var1");
-                com.amap.api.maps.model.LatLngBounds var1 = __var1RefId__ != null ? (com.amap.api.maps.model.LatLngBounds) getHEAP().get(__var1RefId__) : null;
+                LatLngBounds var1 = __var1RefId__ != null ? (LatLngBounds) getHEAP().get(__var1RefId__) : null;
                 // jsonable arg
                 int var2 = (int) ((Map<String, Object>) __args__).get("var2");
                 // jsonable arg
@@ -3491,7 +3529,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.Projection ref = (com.amap.api.maps.Projection) getHEAP().get(refId);
+                Projection ref = (Projection) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -3499,7 +3537,7 @@ public class SubHandler1 {
                 }
             
                 // invoke native method
-                com.amap.api.maps.model.TileProjection __result__;
+                TileProjection __result__;
                 try {
                     __result__ = ref.fromBoundsToTile(var1, var2, var3);
                 } catch (Throwable throwable) {
@@ -3525,13 +3563,13 @@ public class SubHandler1 {
                 // args
                 // ref arg
                 Integer __var1RefId__ = (Integer) ((Map<String, Object>) __args__).get("var1");
-                com.amap.api.maps.model.LatLng var1 = __var1RefId__ != null ? (com.amap.api.maps.model.LatLng) getHEAP().get(__var1RefId__) : null;
+                LatLng var1 = __var1RefId__ != null ? (LatLng) getHEAP().get(__var1RefId__) : null;
                 // jsonable arg
                 Double var2 = (Double) ((Map<String, Object>) __args__).get("var2");
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.Projection ref = (com.amap.api.maps.Projection) getHEAP().get(refId);
+                Projection ref = (Projection) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -3539,7 +3577,7 @@ public class SubHandler1 {
                 }
             
                 // invoke native method
-                com.amap.api.maps.model.LatLngBounds __result__;
+                LatLngBounds __result__;
                 try {
                     __result__ = ref.getMapBounds(var1, new Double(var2).floatValue());
                 } catch (Throwable throwable) {
@@ -3567,7 +3605,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.Projection ref = (com.amap.api.maps.Projection) getHEAP().get(refId);
+                Projection ref = (Projection) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -3575,7 +3613,7 @@ public class SubHandler1 {
                 }
             
                 // invoke native method
-                com.amap.api.maps.model.AMapCameraInfo __result__;
+                AMapCameraInfo __result__;
                 try {
                     __result__ = ref.getCameraInfo();
                 } catch (Throwable throwable) {
@@ -3601,11 +3639,11 @@ public class SubHandler1 {
                 // args
                 // ref arg
                 Integer __var1RefId__ = (Integer) ((Map<String, Object>) __args__).get("var1");
-                com.amap.api.maps.model.Marker var1 = __var1RefId__ != null ? (com.amap.api.maps.model.Marker) getHEAP().get(__var1RefId__) : null;
+                Marker var1 = __var1RefId__ != null ? (Marker) getHEAP().get(__var1RefId__) : null;
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.AMap.MultiPositionInfoWindowAdapter ref = (com.amap.api.maps.AMap.MultiPositionInfoWindowAdapter) getHEAP().get(refId);
+                AMap.MultiPositionInfoWindowAdapter ref = (AMap.MultiPositionInfoWindowAdapter) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -3613,7 +3651,7 @@ public class SubHandler1 {
                 }
             
                 // invoke native method
-                android.view.View __result__;
+                View __result__;
                 try {
                     __result__ = ref.getInfoWindowClick(var1);
                 } catch (Throwable throwable) {
@@ -3639,11 +3677,11 @@ public class SubHandler1 {
                 // args
                 // ref arg
                 Integer __var1RefId__ = (Integer) ((Map<String, Object>) __args__).get("var1");
-                com.amap.api.maps.model.Marker var1 = __var1RefId__ != null ? (com.amap.api.maps.model.Marker) getHEAP().get(__var1RefId__) : null;
+                Marker var1 = __var1RefId__ != null ? (Marker) getHEAP().get(__var1RefId__) : null;
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.AMap.MultiPositionInfoWindowAdapter ref = (com.amap.api.maps.AMap.MultiPositionInfoWindowAdapter) getHEAP().get(refId);
+                AMap.MultiPositionInfoWindowAdapter ref = (AMap.MultiPositionInfoWindowAdapter) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -3651,7 +3689,7 @@ public class SubHandler1 {
                 }
             
                 // invoke native method
-                android.view.View __result__;
+                View __result__;
                 try {
                     __result__ = ref.getOverturnInfoWindow(var1);
                 } catch (Throwable throwable) {
@@ -3677,11 +3715,11 @@ public class SubHandler1 {
                 // args
                 // ref arg
                 Integer __var1RefId__ = (Integer) ((Map<String, Object>) __args__).get("var1");
-                com.amap.api.maps.model.Marker var1 = __var1RefId__ != null ? (com.amap.api.maps.model.Marker) getHEAP().get(__var1RefId__) : null;
+                Marker var1 = __var1RefId__ != null ? (Marker) getHEAP().get(__var1RefId__) : null;
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.AMap.MultiPositionInfoWindowAdapter ref = (com.amap.api.maps.AMap.MultiPositionInfoWindowAdapter) getHEAP().get(refId);
+                AMap.MultiPositionInfoWindowAdapter ref = (AMap.MultiPositionInfoWindowAdapter) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -3689,7 +3727,7 @@ public class SubHandler1 {
                 }
             
                 // invoke native method
-                android.view.View __result__;
+                View __result__;
                 try {
                     __result__ = ref.getOverturnInfoWindowClick(var1);
                 } catch (Throwable throwable) {
@@ -3717,7 +3755,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.Polygon ref = (com.amap.api.maps.model.Polygon) getHEAP().get(refId);
+                Polygon ref = (Polygon) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -3748,7 +3786,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.Polygon ref = (com.amap.api.maps.model.Polygon) getHEAP().get(refId);
+                Polygon ref = (Polygon) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -3778,14 +3816,14 @@ public class SubHandler1 {
                 // args
                 // list arg
                 List<Integer> var1RefIdList = (List<Integer>) ((Map<String, Object>) __args__).get("var1");
-                java.util.List<com.amap.api.maps.model.LatLng> var1 = new ArrayList<>();
+                List<LatLng> var1 = new ArrayList<>();
                 for (int refId : var1RefIdList) {
-                    ((ArrayList<com.amap.api.maps.model.LatLng>) var1).add((com.amap.api.maps.model.LatLng) getHEAP().get(refId));
+                    ((ArrayList<LatLng>) var1).add((LatLng) getHEAP().get(refId));
                 }
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.Polygon ref = (com.amap.api.maps.model.Polygon) getHEAP().get(refId);
+                Polygon ref = (Polygon) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -3816,7 +3854,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.Polygon ref = (com.amap.api.maps.model.Polygon) getHEAP().get(refId);
+                Polygon ref = (Polygon) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -3824,7 +3862,7 @@ public class SubHandler1 {
                 }
             
                 // invoke native method
-                java.util.List<com.amap.api.maps.model.LatLng> __result__;
+                List<LatLng> __result__;
                 try {
                     __result__ = ref.getPoints();
                 } catch (Throwable throwable) {
@@ -3840,7 +3878,7 @@ public class SubHandler1 {
                 List<Integer> jsonableResult = null;
                 if (__result__ != null) {
                     jsonableResult = new ArrayList<>();
-                    for (com.amap.api.maps.model.LatLng item : __result__) {
+                    for (LatLng item : __result__) {
                         getHEAP().put(System.identityHashCode(item), item);
                         jsonableResult.add(System.identityHashCode(item));
                     }
@@ -3853,14 +3891,14 @@ public class SubHandler1 {
                 // args
                 // list arg
                 List<Integer> var1RefIdList = (List<Integer>) ((Map<String, Object>) __args__).get("var1");
-                java.util.List<com.amap.api.maps.model.BaseHoleOptions> var1 = new ArrayList<>();
+                List<BaseHoleOptions> var1 = new ArrayList<>();
                 for (int refId : var1RefIdList) {
-                    ((ArrayList<com.amap.api.maps.model.BaseHoleOptions>) var1).add((com.amap.api.maps.model.BaseHoleOptions) getHEAP().get(refId));
+                    ((ArrayList<BaseHoleOptions>) var1).add((BaseHoleOptions) getHEAP().get(refId));
                 }
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.Polygon ref = (com.amap.api.maps.model.Polygon) getHEAP().get(refId);
+                Polygon ref = (Polygon) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -3891,7 +3929,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.Polygon ref = (com.amap.api.maps.model.Polygon) getHEAP().get(refId);
+                Polygon ref = (Polygon) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -3899,7 +3937,7 @@ public class SubHandler1 {
                 }
             
                 // invoke native method
-                java.util.List<com.amap.api.maps.model.BaseHoleOptions> __result__;
+                List<BaseHoleOptions> __result__;
                 try {
                     __result__ = ref.getHoleOptions();
                 } catch (Throwable throwable) {
@@ -3915,7 +3953,7 @@ public class SubHandler1 {
                 List<Integer> jsonableResult = null;
                 if (__result__ != null) {
                     jsonableResult = new ArrayList<>();
-                    for (com.amap.api.maps.model.BaseHoleOptions item : __result__) {
+                    for (BaseHoleOptions item : __result__) {
                         getHEAP().put(System.identityHashCode(item), item);
                         jsonableResult.add(System.identityHashCode(item));
                     }
@@ -3931,7 +3969,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.Polygon ref = (com.amap.api.maps.model.Polygon) getHEAP().get(refId);
+                Polygon ref = (Polygon) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -3962,7 +4000,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.Polygon ref = (com.amap.api.maps.model.Polygon) getHEAP().get(refId);
+                Polygon ref = (Polygon) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -3995,7 +4033,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.Polygon ref = (com.amap.api.maps.model.Polygon) getHEAP().get(refId);
+                Polygon ref = (Polygon) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -4026,7 +4064,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.Polygon ref = (com.amap.api.maps.model.Polygon) getHEAP().get(refId);
+                Polygon ref = (Polygon) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -4059,7 +4097,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.Polygon ref = (com.amap.api.maps.model.Polygon) getHEAP().get(refId);
+                Polygon ref = (Polygon) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -4090,7 +4128,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.Polygon ref = (com.amap.api.maps.model.Polygon) getHEAP().get(refId);
+                Polygon ref = (Polygon) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -4123,7 +4161,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.Polygon ref = (com.amap.api.maps.model.Polygon) getHEAP().get(refId);
+                Polygon ref = (Polygon) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -4154,7 +4192,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.Polygon ref = (com.amap.api.maps.model.Polygon) getHEAP().get(refId);
+                Polygon ref = (Polygon) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -4187,7 +4225,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.Polygon ref = (com.amap.api.maps.model.Polygon) getHEAP().get(refId);
+                Polygon ref = (Polygon) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -4218,7 +4256,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.Polygon ref = (com.amap.api.maps.model.Polygon) getHEAP().get(refId);
+                Polygon ref = (Polygon) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -4248,11 +4286,11 @@ public class SubHandler1 {
                 // args
                 // ref arg
                 Integer __var1RefId__ = (Integer) ((Map<String, Object>) __args__).get("var1");
-                com.amap.api.maps.model.LatLng var1 = __var1RefId__ != null ? (com.amap.api.maps.model.LatLng) getHEAP().get(__var1RefId__) : null;
+                LatLng var1 = __var1RefId__ != null ? (LatLng) getHEAP().get(__var1RefId__) : null;
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.Polygon ref = (com.amap.api.maps.model.Polygon) getHEAP().get(refId);
+                Polygon ref = (Polygon) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -4284,7 +4322,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.BitmapDescriptor ref = (com.amap.api.maps.model.BitmapDescriptor) getHEAP().get(refId);
+                BitmapDescriptor ref = (BitmapDescriptor) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -4316,7 +4354,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.BitmapDescriptor ref = (com.amap.api.maps.model.BitmapDescriptor) getHEAP().get(refId);
+                BitmapDescriptor ref = (BitmapDescriptor) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -4324,7 +4362,7 @@ public class SubHandler1 {
                 }
             
                 // invoke native method
-                com.amap.api.maps.model.BitmapDescriptor __result__;
+                BitmapDescriptor __result__;
                 try {
                     __result__ = ref.clone();
                 } catch (Throwable throwable) {
@@ -4352,7 +4390,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.BitmapDescriptor ref = (com.amap.api.maps.model.BitmapDescriptor) getHEAP().get(refId);
+                BitmapDescriptor ref = (BitmapDescriptor) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -4360,7 +4398,7 @@ public class SubHandler1 {
                 }
             
                 // invoke native method
-                android.graphics.Bitmap __result__;
+                Bitmap __result__;
                 try {
                     __result__ = ref.getBitmap();
                 } catch (Throwable throwable) {
@@ -4388,7 +4426,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.BitmapDescriptor ref = (com.amap.api.maps.model.BitmapDescriptor) getHEAP().get(refId);
+                BitmapDescriptor ref = (BitmapDescriptor) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -4420,7 +4458,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.BitmapDescriptor ref = (com.amap.api.maps.model.BitmapDescriptor) getHEAP().get(refId);
+                BitmapDescriptor ref = (BitmapDescriptor) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -4450,14 +4488,14 @@ public class SubHandler1 {
                 // args
                 // list arg
                 List<Integer> var1RefIdList = (List<Integer>) ((Map<String, Object>) __args__).get("var1");
-                java.lang.Iterable<com.amap.api.maps.model.LatLng> var1 = new ArrayList<>();
+                Iterable<LatLng> var1 = new ArrayList<>();
                 for (int refId : var1RefIdList) {
-                    ((ArrayList<com.amap.api.maps.model.LatLng>) var1).add((com.amap.api.maps.model.LatLng) getHEAP().get(refId));
+                    ((ArrayList<LatLng>) var1).add((LatLng) getHEAP().get(refId));
                 }
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.PolygonHoleOptions ref = (com.amap.api.maps.model.PolygonHoleOptions) getHEAP().get(refId);
+                PolygonHoleOptions ref = (PolygonHoleOptions) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -4465,7 +4503,7 @@ public class SubHandler1 {
                 }
             
                 // invoke native method
-                com.amap.api.maps.model.PolygonHoleOptions __result__;
+                PolygonHoleOptions __result__;
                 try {
                     __result__ = ref.addAll((ArrayList) var1);
                 } catch (Throwable throwable) {
@@ -4493,7 +4531,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.PolygonHoleOptions ref = (com.amap.api.maps.model.PolygonHoleOptions) getHEAP().get(refId);
+                PolygonHoleOptions ref = (PolygonHoleOptions) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -4501,7 +4539,7 @@ public class SubHandler1 {
                 }
             
                 // invoke native method
-                java.util.List<com.amap.api.maps.model.LatLng> __result__;
+                List<LatLng> __result__;
                 try {
                     __result__ = ref.getPoints();
                 } catch (Throwable throwable) {
@@ -4517,7 +4555,7 @@ public class SubHandler1 {
                 List<Integer> jsonableResult = null;
                 if (__result__ != null) {
                     jsonableResult = new ArrayList<>();
-                    for (com.amap.api.maps.model.LatLng item : __result__) {
+                    for (LatLng item : __result__) {
                         getHEAP().put(System.identityHashCode(item), item);
                         jsonableResult.add(System.identityHashCode(item));
                     }
@@ -4532,7 +4570,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.Poi ref = (com.amap.api.maps.model.Poi) getHEAP().get(refId);
+                Poi ref = (Poi) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -4564,7 +4602,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.Poi ref = (com.amap.api.maps.model.Poi) getHEAP().get(refId);
+                Poi ref = (Poi) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -4572,7 +4610,7 @@ public class SubHandler1 {
                 }
             
                 // invoke native method
-                com.amap.api.maps.model.LatLng __result__;
+                LatLng __result__;
                 try {
                     __result__ = ref.getCoordinate();
                 } catch (Throwable throwable) {
@@ -4600,7 +4638,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.Poi ref = (com.amap.api.maps.model.Poi) getHEAP().get(refId);
+                Poi ref = (Poi) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -4630,11 +4668,11 @@ public class SubHandler1 {
                 // args
                 // ref arg
                 Integer __var1RefId__ = (Integer) ((Map<String, Object>) __args__).get("var1");
-                com.amap.api.maps.model.BitmapDescriptor var1 = __var1RefId__ != null ? (com.amap.api.maps.model.BitmapDescriptor) getHEAP().get(__var1RefId__) : null;
+                BitmapDescriptor var1 = __var1RefId__ != null ? (BitmapDescriptor) getHEAP().get(__var1RefId__) : null;
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.MyLocationStyle ref = (com.amap.api.maps.model.MyLocationStyle) getHEAP().get(refId);
+                MyLocationStyle ref = (MyLocationStyle) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -4642,7 +4680,7 @@ public class SubHandler1 {
                 }
             
                 // invoke native method
-                com.amap.api.maps.model.MyLocationStyle __result__;
+                MyLocationStyle __result__;
                 try {
                     __result__ = ref.myLocationIcon(var1);
                 } catch (Throwable throwable) {
@@ -4673,7 +4711,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.MyLocationStyle ref = (com.amap.api.maps.model.MyLocationStyle) getHEAP().get(refId);
+                MyLocationStyle ref = (MyLocationStyle) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -4681,7 +4719,7 @@ public class SubHandler1 {
                 }
             
                 // invoke native method
-                com.amap.api.maps.model.MyLocationStyle __result__;
+                MyLocationStyle __result__;
                 try {
                     __result__ = ref.anchor(new Double(var1).floatValue(), new Double(var2).floatValue());
                 } catch (Throwable throwable) {
@@ -4710,7 +4748,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.MyLocationStyle ref = (com.amap.api.maps.model.MyLocationStyle) getHEAP().get(refId);
+                MyLocationStyle ref = (MyLocationStyle) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -4718,7 +4756,7 @@ public class SubHandler1 {
                 }
             
                 // invoke native method
-                com.amap.api.maps.model.MyLocationStyle __result__;
+                MyLocationStyle __result__;
                 try {
                     __result__ = ref.radiusFillColor(var1);
                 } catch (Throwable throwable) {
@@ -4747,7 +4785,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.MyLocationStyle ref = (com.amap.api.maps.model.MyLocationStyle) getHEAP().get(refId);
+                MyLocationStyle ref = (MyLocationStyle) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -4755,7 +4793,7 @@ public class SubHandler1 {
                 }
             
                 // invoke native method
-                com.amap.api.maps.model.MyLocationStyle __result__;
+                MyLocationStyle __result__;
                 try {
                     __result__ = ref.strokeColor(var1);
                 } catch (Throwable throwable) {
@@ -4784,7 +4822,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.MyLocationStyle ref = (com.amap.api.maps.model.MyLocationStyle) getHEAP().get(refId);
+                MyLocationStyle ref = (MyLocationStyle) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -4792,7 +4830,7 @@ public class SubHandler1 {
                 }
             
                 // invoke native method
-                com.amap.api.maps.model.MyLocationStyle __result__;
+                MyLocationStyle __result__;
                 try {
                     __result__ = ref.strokeWidth(new Double(var1).floatValue());
                 } catch (Throwable throwable) {
@@ -4821,7 +4859,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.MyLocationStyle ref = (com.amap.api.maps.model.MyLocationStyle) getHEAP().get(refId);
+                MyLocationStyle ref = (MyLocationStyle) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -4829,7 +4867,7 @@ public class SubHandler1 {
                 }
             
                 // invoke native method
-                com.amap.api.maps.model.MyLocationStyle __result__;
+                MyLocationStyle __result__;
                 try {
                     __result__ = ref.myLocationType(var1);
                 } catch (Throwable throwable) {
@@ -4858,7 +4896,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.MyLocationStyle ref = (com.amap.api.maps.model.MyLocationStyle) getHEAP().get(refId);
+                MyLocationStyle ref = (MyLocationStyle) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -4866,7 +4904,7 @@ public class SubHandler1 {
                 }
             
                 // invoke native method
-                com.amap.api.maps.model.MyLocationStyle __result__;
+                MyLocationStyle __result__;
                 try {
                     __result__ = ref.interval(var1);
                 } catch (Throwable throwable) {
@@ -4895,7 +4933,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.MyLocationStyle ref = (com.amap.api.maps.model.MyLocationStyle) getHEAP().get(refId);
+                MyLocationStyle ref = (MyLocationStyle) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -4903,7 +4941,7 @@ public class SubHandler1 {
                 }
             
                 // invoke native method
-                com.amap.api.maps.model.MyLocationStyle __result__;
+                MyLocationStyle __result__;
                 try {
                     __result__ = ref.showMyLocation(var1);
                 } catch (Throwable throwable) {
@@ -4931,7 +4969,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.MyLocationStyle ref = (com.amap.api.maps.model.MyLocationStyle) getHEAP().get(refId);
+                MyLocationStyle ref = (MyLocationStyle) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -4939,7 +4977,7 @@ public class SubHandler1 {
                 }
             
                 // invoke native method
-                com.amap.api.maps.model.BitmapDescriptor __result__;
+                BitmapDescriptor __result__;
                 try {
                     __result__ = ref.getMyLocationIcon();
                 } catch (Throwable throwable) {
@@ -4967,7 +5005,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.MyLocationStyle ref = (com.amap.api.maps.model.MyLocationStyle) getHEAP().get(refId);
+                MyLocationStyle ref = (MyLocationStyle) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -4999,7 +5037,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.MyLocationStyle ref = (com.amap.api.maps.model.MyLocationStyle) getHEAP().get(refId);
+                MyLocationStyle ref = (MyLocationStyle) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -5031,7 +5069,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.MyLocationStyle ref = (com.amap.api.maps.model.MyLocationStyle) getHEAP().get(refId);
+                MyLocationStyle ref = (MyLocationStyle) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -5063,7 +5101,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.MyLocationStyle ref = (com.amap.api.maps.model.MyLocationStyle) getHEAP().get(refId);
+                MyLocationStyle ref = (MyLocationStyle) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -5095,7 +5133,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.MyLocationStyle ref = (com.amap.api.maps.model.MyLocationStyle) getHEAP().get(refId);
+                MyLocationStyle ref = (MyLocationStyle) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -5127,7 +5165,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.MyLocationStyle ref = (com.amap.api.maps.model.MyLocationStyle) getHEAP().get(refId);
+                MyLocationStyle ref = (MyLocationStyle) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -5159,7 +5197,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.MyLocationStyle ref = (com.amap.api.maps.model.MyLocationStyle) getHEAP().get(refId);
+                MyLocationStyle ref = (MyLocationStyle) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -5191,7 +5229,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.MyLocationStyle ref = (com.amap.api.maps.model.MyLocationStyle) getHEAP().get(refId);
+                MyLocationStyle ref = (MyLocationStyle) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -5223,7 +5261,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.RouteOverlay ref = (com.amap.api.maps.model.RouteOverlay) getHEAP().get(refId);
+                RouteOverlay ref = (RouteOverlay) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -5254,7 +5292,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.RouteOverlay ref = (com.amap.api.maps.model.RouteOverlay) getHEAP().get(refId);
+                RouteOverlay ref = (RouteOverlay) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -5283,11 +5321,11 @@ public class SubHandler1 {
                 // args
                 // ref arg
                 Integer __var1RefId__ = (Integer) ((Map<String, Object>) __args__).get("var1");
-                com.amap.api.maps.model.LatLng var1 = __var1RefId__ != null ? (com.amap.api.maps.model.LatLng) getHEAP().get(__var1RefId__) : null;
+                LatLng var1 = __var1RefId__ != null ? (LatLng) getHEAP().get(__var1RefId__) : null;
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.CircleHoleOptions ref = (com.amap.api.maps.model.CircleHoleOptions) getHEAP().get(refId);
+                CircleHoleOptions ref = (CircleHoleOptions) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -5295,7 +5333,7 @@ public class SubHandler1 {
                 }
             
                 // invoke native method
-                com.amap.api.maps.model.CircleHoleOptions __result__;
+                CircleHoleOptions __result__;
                 try {
                     __result__ = ref.center(var1);
                 } catch (Throwable throwable) {
@@ -5324,7 +5362,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.CircleHoleOptions ref = (com.amap.api.maps.model.CircleHoleOptions) getHEAP().get(refId);
+                CircleHoleOptions ref = (CircleHoleOptions) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -5332,7 +5370,7 @@ public class SubHandler1 {
                 }
             
                 // invoke native method
-                com.amap.api.maps.model.CircleHoleOptions __result__;
+                CircleHoleOptions __result__;
                 try {
                     __result__ = ref.radius(var1);
                 } catch (Throwable throwable) {
@@ -5360,7 +5398,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.CircleHoleOptions ref = (com.amap.api.maps.model.CircleHoleOptions) getHEAP().get(refId);
+                CircleHoleOptions ref = (CircleHoleOptions) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -5368,7 +5406,7 @@ public class SubHandler1 {
                 }
             
                 // invoke native method
-                com.amap.api.maps.model.LatLng __result__;
+                LatLng __result__;
                 try {
                     __result__ = ref.getCenter();
                 } catch (Throwable throwable) {
@@ -5396,7 +5434,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.CircleHoleOptions ref = (com.amap.api.maps.model.CircleHoleOptions) getHEAP().get(refId);
+                CircleHoleOptions ref = (CircleHoleOptions) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -5428,7 +5466,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.Text ref = (com.amap.api.maps.model.Text) getHEAP().get(refId);
+                Text ref = (Text) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -5459,7 +5497,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.Text ref = (com.amap.api.maps.model.Text) getHEAP().get(refId);
+                Text ref = (Text) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -5490,7 +5528,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.Text ref = (com.amap.api.maps.model.Text) getHEAP().get(refId);
+                Text ref = (Text) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -5520,11 +5558,11 @@ public class SubHandler1 {
                 // args
                 // ref arg
                 Integer __var1RefId__ = (Integer) ((Map<String, Object>) __args__).get("var1");
-                com.amap.api.maps.model.LatLng var1 = __var1RefId__ != null ? (com.amap.api.maps.model.LatLng) getHEAP().get(__var1RefId__) : null;
+                LatLng var1 = __var1RefId__ != null ? (LatLng) getHEAP().get(__var1RefId__) : null;
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.Text ref = (com.amap.api.maps.model.Text) getHEAP().get(refId);
+                Text ref = (Text) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -5555,7 +5593,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.Text ref = (com.amap.api.maps.model.Text) getHEAP().get(refId);
+                Text ref = (Text) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -5563,7 +5601,7 @@ public class SubHandler1 {
                 }
             
                 // invoke native method
-                com.amap.api.maps.model.LatLng __result__;
+                LatLng __result__;
                 try {
                     __result__ = ref.getPosition();
                 } catch (Throwable throwable) {
@@ -5592,7 +5630,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.Text ref = (com.amap.api.maps.model.Text) getHEAP().get(refId);
+                Text ref = (Text) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -5623,7 +5661,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.Text ref = (com.amap.api.maps.model.Text) getHEAP().get(refId);
+                Text ref = (Text) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -5656,7 +5694,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.Text ref = (com.amap.api.maps.model.Text) getHEAP().get(refId);
+                Text ref = (Text) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -5687,7 +5725,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.Text ref = (com.amap.api.maps.model.Text) getHEAP().get(refId);
+                Text ref = (Text) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -5720,7 +5758,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.Text ref = (com.amap.api.maps.model.Text) getHEAP().get(refId);
+                Text ref = (Text) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -5751,7 +5789,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.Text ref = (com.amap.api.maps.model.Text) getHEAP().get(refId);
+                Text ref = (Text) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -5784,7 +5822,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.Text ref = (com.amap.api.maps.model.Text) getHEAP().get(refId);
+                Text ref = (Text) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -5815,7 +5853,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.Text ref = (com.amap.api.maps.model.Text) getHEAP().get(refId);
+                Text ref = (Text) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -5850,7 +5888,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.Text ref = (com.amap.api.maps.model.Text) getHEAP().get(refId);
+                Text ref = (Text) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -5881,7 +5919,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.Text ref = (com.amap.api.maps.model.Text) getHEAP().get(refId);
+                Text ref = (Text) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -5913,7 +5951,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.Text ref = (com.amap.api.maps.model.Text) getHEAP().get(refId);
+                Text ref = (Text) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -5946,7 +5984,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.Text ref = (com.amap.api.maps.model.Text) getHEAP().get(refId);
+                Text ref = (Text) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -5977,7 +6015,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.Text ref = (com.amap.api.maps.model.Text) getHEAP().get(refId);
+                Text ref = (Text) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -6006,11 +6044,11 @@ public class SubHandler1 {
             put("com.amap.api.maps.model.Text::setObject", (__args__, __methodResult__) -> {
                 // args
                 // jsonable arg
-                java.lang.Object var1 = (java.lang.Object) ((Map<String, Object>) __args__).get("var1");
+                Object var1 = (Object) ((Map<String, Object>) __args__).get("var1");
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.Text ref = (com.amap.api.maps.model.Text) getHEAP().get(refId);
+                Text ref = (Text) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -6041,7 +6079,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.Text ref = (com.amap.api.maps.model.Text) getHEAP().get(refId);
+                Text ref = (Text) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -6049,7 +6087,7 @@ public class SubHandler1 {
                 }
             
                 // invoke native method
-                java.lang.Object __result__;
+                Object __result__;
                 try {
                     __result__ = ref.getObject();
                 } catch (Throwable throwable) {
@@ -6062,7 +6100,7 @@ public class SubHandler1 {
                 }
             
                 // convert result to jsonable result
-                java.lang.Object jsonableResult = __result__;
+                Object jsonableResult = __result__;
             
                 __methodResult__.success(jsonableResult);
             });
@@ -6074,7 +6112,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.Text ref = (com.amap.api.maps.model.Text) getHEAP().get(refId);
+                Text ref = (Text) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -6105,7 +6143,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.Text ref = (com.amap.api.maps.model.Text) getHEAP().get(refId);
+                Text ref = (Text) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -6138,7 +6176,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.Text ref = (com.amap.api.maps.model.Text) getHEAP().get(refId);
+                Text ref = (Text) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -6169,7 +6207,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.Text ref = (com.amap.api.maps.model.Text) getHEAP().get(refId);
+                Text ref = (Text) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -6199,11 +6237,11 @@ public class SubHandler1 {
                 // args
                 // ref arg
                 Integer __var1RefId__ = (Integer) ((Map<String, Object>) __args__).get("var1");
-                com.amap.api.maps.model.LatLng var1 = __var1RefId__ != null ? (com.amap.api.maps.model.LatLng) getHEAP().get(__var1RefId__) : null;
+                LatLng var1 = __var1RefId__ != null ? (LatLng) getHEAP().get(__var1RefId__) : null;
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.LatLngBounds.Builder ref = (com.amap.api.maps.model.LatLngBounds.Builder) getHEAP().get(refId);
+                LatLngBounds.Builder ref = (LatLngBounds.Builder) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -6211,7 +6249,7 @@ public class SubHandler1 {
                 }
             
                 // invoke native method
-                com.amap.api.maps.model.LatLngBounds.Builder __result__;
+                LatLngBounds.Builder __result__;
                 try {
                     __result__ = ref.include(var1);
                 } catch (Throwable throwable) {
@@ -6239,7 +6277,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.LatLngBounds.Builder ref = (com.amap.api.maps.model.LatLngBounds.Builder) getHEAP().get(refId);
+                LatLngBounds.Builder ref = (LatLngBounds.Builder) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -6247,7 +6285,7 @@ public class SubHandler1 {
                 }
             
                 // invoke native method
-                com.amap.api.maps.model.LatLngBounds __result__;
+                LatLngBounds __result__;
                 try {
                     __result__ = ref.build();
                 } catch (Throwable throwable) {
@@ -6273,11 +6311,11 @@ public class SubHandler1 {
                 // args
                 // ref arg
                 Integer __var1RefId__ = (Integer) ((Map<String, Object>) __args__).get("var1");
-                com.amap.api.maps.model.LatLng var1 = __var1RefId__ != null ? (com.amap.api.maps.model.LatLng) getHEAP().get(__var1RefId__) : null;
+                LatLng var1 = __var1RefId__ != null ? (LatLng) getHEAP().get(__var1RefId__) : null;
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.NavigateArrowOptions ref = (com.amap.api.maps.model.NavigateArrowOptions) getHEAP().get(refId);
+                NavigateArrowOptions ref = (NavigateArrowOptions) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -6285,7 +6323,7 @@ public class SubHandler1 {
                 }
             
                 // invoke native method
-                com.amap.api.maps.model.NavigateArrowOptions __result__;
+                NavigateArrowOptions __result__;
                 try {
                     __result__ = ref.add(var1);
                 } catch (Throwable throwable) {
@@ -6311,14 +6349,14 @@ public class SubHandler1 {
                 // args
                 // list arg
                 List<Integer> var1RefIdList = (List<Integer>) ((Map<String, Object>) __args__).get("var1");
-                java.lang.Iterable<com.amap.api.maps.model.LatLng> var1 = new ArrayList<>();
+                Iterable<LatLng> var1 = new ArrayList<>();
                 for (int refId : var1RefIdList) {
-                    ((ArrayList<com.amap.api.maps.model.LatLng>) var1).add((com.amap.api.maps.model.LatLng) getHEAP().get(refId));
+                    ((ArrayList<LatLng>) var1).add((LatLng) getHEAP().get(refId));
                 }
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.NavigateArrowOptions ref = (com.amap.api.maps.model.NavigateArrowOptions) getHEAP().get(refId);
+                NavigateArrowOptions ref = (NavigateArrowOptions) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -6326,7 +6364,7 @@ public class SubHandler1 {
                 }
             
                 // invoke native method
-                com.amap.api.maps.model.NavigateArrowOptions __result__;
+                NavigateArrowOptions __result__;
                 try {
                     __result__ = ref.addAll((ArrayList) var1);
                 } catch (Throwable throwable) {
@@ -6355,7 +6393,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.NavigateArrowOptions ref = (com.amap.api.maps.model.NavigateArrowOptions) getHEAP().get(refId);
+                NavigateArrowOptions ref = (NavigateArrowOptions) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -6363,7 +6401,7 @@ public class SubHandler1 {
                 }
             
                 // invoke native method
-                com.amap.api.maps.model.NavigateArrowOptions __result__;
+                NavigateArrowOptions __result__;
                 try {
                     __result__ = ref.width(new Double(var1).floatValue());
                 } catch (Throwable throwable) {
@@ -6392,7 +6430,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.NavigateArrowOptions ref = (com.amap.api.maps.model.NavigateArrowOptions) getHEAP().get(refId);
+                NavigateArrowOptions ref = (NavigateArrowOptions) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -6400,7 +6438,7 @@ public class SubHandler1 {
                 }
             
                 // invoke native method
-                com.amap.api.maps.model.NavigateArrowOptions __result__;
+                NavigateArrowOptions __result__;
                 try {
                     __result__ = ref.topColor(var1);
                 } catch (Throwable throwable) {
@@ -6429,7 +6467,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.NavigateArrowOptions ref = (com.amap.api.maps.model.NavigateArrowOptions) getHEAP().get(refId);
+                NavigateArrowOptions ref = (NavigateArrowOptions) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -6437,7 +6475,7 @@ public class SubHandler1 {
                 }
             
                 // invoke native method
-                com.amap.api.maps.model.NavigateArrowOptions __result__;
+                NavigateArrowOptions __result__;
                 try {
                     __result__ = ref.sideColor(var1);
                 } catch (Throwable throwable) {
@@ -6466,7 +6504,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.NavigateArrowOptions ref = (com.amap.api.maps.model.NavigateArrowOptions) getHEAP().get(refId);
+                NavigateArrowOptions ref = (NavigateArrowOptions) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -6474,7 +6512,7 @@ public class SubHandler1 {
                 }
             
                 // invoke native method
-                com.amap.api.maps.model.NavigateArrowOptions __result__;
+                NavigateArrowOptions __result__;
                 try {
                     __result__ = ref.zIndex(new Double(var1).floatValue());
                 } catch (Throwable throwable) {
@@ -6503,7 +6541,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.NavigateArrowOptions ref = (com.amap.api.maps.model.NavigateArrowOptions) getHEAP().get(refId);
+                NavigateArrowOptions ref = (NavigateArrowOptions) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -6511,7 +6549,7 @@ public class SubHandler1 {
                 }
             
                 // invoke native method
-                com.amap.api.maps.model.NavigateArrowOptions __result__;
+                NavigateArrowOptions __result__;
                 try {
                     __result__ = ref.visible(var1);
                 } catch (Throwable throwable) {
@@ -6540,7 +6578,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.NavigateArrowOptions ref = (com.amap.api.maps.model.NavigateArrowOptions) getHEAP().get(refId);
+                NavigateArrowOptions ref = (NavigateArrowOptions) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -6548,7 +6586,7 @@ public class SubHandler1 {
                 }
             
                 // invoke native method
-                com.amap.api.maps.model.NavigateArrowOptions __result__;
+                NavigateArrowOptions __result__;
                 try {
                     __result__ = ref.set3DModel(var1);
                 } catch (Throwable throwable) {
@@ -6576,7 +6614,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.NavigateArrowOptions ref = (com.amap.api.maps.model.NavigateArrowOptions) getHEAP().get(refId);
+                NavigateArrowOptions ref = (NavigateArrowOptions) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -6584,7 +6622,7 @@ public class SubHandler1 {
                 }
             
                 // invoke native method
-                java.util.List<com.amap.api.maps.model.LatLng> __result__;
+                List<LatLng> __result__;
                 try {
                     __result__ = ref.getPoints();
                 } catch (Throwable throwable) {
@@ -6600,7 +6638,7 @@ public class SubHandler1 {
                 List<Integer> jsonableResult = null;
                 if (__result__ != null) {
                     jsonableResult = new ArrayList<>();
-                    for (com.amap.api.maps.model.LatLng item : __result__) {
+                    for (LatLng item : __result__) {
                         getHEAP().put(System.identityHashCode(item), item);
                         jsonableResult.add(System.identityHashCode(item));
                     }
@@ -6615,7 +6653,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.NavigateArrowOptions ref = (com.amap.api.maps.model.NavigateArrowOptions) getHEAP().get(refId);
+                NavigateArrowOptions ref = (NavigateArrowOptions) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -6647,7 +6685,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.NavigateArrowOptions ref = (com.amap.api.maps.model.NavigateArrowOptions) getHEAP().get(refId);
+                NavigateArrowOptions ref = (NavigateArrowOptions) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -6679,7 +6717,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.NavigateArrowOptions ref = (com.amap.api.maps.model.NavigateArrowOptions) getHEAP().get(refId);
+                NavigateArrowOptions ref = (NavigateArrowOptions) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -6711,7 +6749,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.NavigateArrowOptions ref = (com.amap.api.maps.model.NavigateArrowOptions) getHEAP().get(refId);
+                NavigateArrowOptions ref = (NavigateArrowOptions) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -6743,7 +6781,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.NavigateArrowOptions ref = (com.amap.api.maps.model.NavigateArrowOptions) getHEAP().get(refId);
+                NavigateArrowOptions ref = (NavigateArrowOptions) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -6775,7 +6813,7 @@ public class SubHandler1 {
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.NavigateArrowOptions ref = (com.amap.api.maps.model.NavigateArrowOptions) getHEAP().get(refId);
+                NavigateArrowOptions ref = (NavigateArrowOptions) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -6805,14 +6843,14 @@ public class SubHandler1 {
                 // args
                 // list arg
                 List<Integer> var1RefIdList = (List<Integer>) ((Map<String, Object>) __args__).get("var1");
-                java.util.List<com.amap.api.maps.model.LatLng> var1 = new ArrayList<>();
+                List<LatLng> var1 = new ArrayList<>();
                 for (int refId : var1RefIdList) {
-                    ((ArrayList<com.amap.api.maps.model.LatLng>) var1).add((com.amap.api.maps.model.LatLng) getHEAP().get(refId));
+                    ((ArrayList<LatLng>) var1).add((LatLng) getHEAP().get(refId));
                 }
             
                 // ref
                 int refId = (int) ((Map<String, Object>) __args__).get("refId");
-                com.amap.api.maps.model.NavigateArrowOptions ref = (com.amap.api.maps.model.NavigateArrowOptions) getHEAP().get(refId);
+                NavigateArrowOptions ref = (NavigateArrowOptions) getHEAP().get(refId);
             
                 // print log
                 if (getEnableLog()) {
@@ -6851,9 +6889,9 @@ public class SubHandler1 {
                 }
             
                 // invoke native method
-                com.amap.api.maps.model.BitmapDescriptor __result__;
+                BitmapDescriptor __result__;
                 try {
-                    __result__ = com.amap.api.maps.model.BitmapDescriptorFactory.fromResource(var0);
+                    __result__ = BitmapDescriptorFactory.fromResource(var0);
                 } catch (Throwable throwable) {
                     throwable.printStackTrace();
                     if (getEnableLog()) {

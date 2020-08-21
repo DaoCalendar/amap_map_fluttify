@@ -1162,7 +1162,7 @@ public class SubHandler6 {
             
                     // invoke native method
                     try {
-                        com.amap.api.maps.MapsInitializer.closeTileOverlay(var0);
+                        com.amap.api.maps.MapsInitializer.loadWorldVectorMap(var0);
                     } catch (Throwable throwable) {
                         throwable.printStackTrace();
                         if (getEnableLog()) {
@@ -1196,7 +1196,7 @@ public class SubHandler6 {
                     // invoke native method
                     boolean __result__;
                     try {
-                        __result__ = com.amap.api.maps.MapsInitializer.isTileOverlayClosed();
+                        __result__ = com.amap.api.maps.MapsInitializer.isLoadWorldGridMap();
                     } catch (Throwable throwable) {
                         throwable.printStackTrace();
                         if (getEnableLog()) {

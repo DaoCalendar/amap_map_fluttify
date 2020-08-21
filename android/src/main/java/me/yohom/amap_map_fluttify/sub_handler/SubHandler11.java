@@ -1782,7 +1782,7 @@ public class SubHandler11 {
             
             
                 // create target object
-                com.amap.api.maps.model.BaseOverlay __obj__ = new com.amap.api.maps.model.BaseOverlay();
+                com.amap.api.maps.model.BaseOverlay __obj__ = new com.amap.api.maps.model.BaseOverlay("com.amap.api.maps.model.BaseOverlay");
                 getHEAP().put(System.identityHashCode(__obj__), __obj__);
             
                 // print current HEAP
@@ -5494,8 +5494,8 @@ public class SubHandler11 {
                     // args
             
             
-                    // create target object
-                    com.amap.api.maps.model.BaseOverlay __obj__ = new com.amap.api.maps.model.BaseOverlay();
+                    // create target object , add overlayName
+                    com.amap.api.maps.model.BaseOverlay __obj__ = new com.amap.api.maps.model.BaseOverlay("com.amap.api.maps.model.BaseOverlay");
                     getHEAP().put(System.identityHashCode(__obj__), __obj__);
             
                     // print current HEAP
